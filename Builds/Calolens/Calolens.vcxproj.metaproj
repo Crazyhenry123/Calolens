@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <MSBuildFileVersion>16.11.0.36601</MSBuildFileVersion>
+    <MSBuildSemanticVersion>16.11.0+0538acc04</MSBuildSemanticVersion>
+    <MSBuildExtensionsPath32>D:\VS2019\MSBuild</MSBuildExtensionsPath32>
+    <MSBuildExtensionsPath>D:\VS2019\MSBuild</MSBuildExtensionsPath>
+    <MSBuildToolsPath32>D:\VS2019\MSBuild\Current\Bin</MSBuildToolsPath32>
+    <MSBuildToolsPath64>D:\VS2019\MSBuild\Current\Bin\amd64</MSBuildToolsPath64>
+    <MSBuildSDKsPath>D:\VS2019\MSBuild\Sdks</MSBuildSDKsPath>
+    <FrameworkSDKRoot>C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\</FrameworkSDKRoot>
+    <MSBuildRuntimeVersion>4.0.30319</MSBuildRuntimeVersion>
+    <MSBuildFrameworkToolsPath>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\</MSBuildFrameworkToolsPath>
+    <MSBuildFrameworkToolsPath32>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\</MSBuildFrameworkToolsPath32>
+    <MSBuildFrameworkToolsPath64>C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\</MSBuildFrameworkToolsPath64>
+    <MSBuildFrameworkToolsRoot>C:\WINDOWS\Microsoft.NET\Framework\</MSBuildFrameworkToolsRoot>
+    <SDK35ToolsPath />
+    <SDK40ToolsPath>C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\</SDK40ToolsPath>
+    <WindowsSDK80Path />
+    <VsInstallRoot>D:\VS2019</VsInstallRoot>
+    <MSBuildToolsRoot>D:\VS2019\MSBuild</MSBuildToolsRoot>
+    <RoslynTargetsPath>D:\VS2019\MSBuild\Current\Bin\Roslyn</RoslynTargetsPath>
+    <VCTargetsPath>D:\VS2019\MSBuild\Microsoft\VC\v160\</VCTargetsPath>
+    <VCTargetsPath14>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\</VCTargetsPath14>
+    <VCTargetsPath12>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\</VCTargetsPath12>
+    <VCTargetsPath11>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\</VCTargetsPath11>
+    <VCTargetsPath10>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\</VCTargetsPath10>
+    <AndroidTargetsPath>D:\VS2019\MSBuild\Microsoft\MDD\Android\V150\</AndroidTargetsPath>
+    <iOSTargetsPath>D:\VS2019\MSBuild\Microsoft\MDD\iOS\V150\</iOSTargetsPath>
+    <_DirectorySolutionPropsFile>Directory.Solution.props</_DirectorySolutionPropsFile>
+    <_DirectorySolutionPropsBasePath />
+    <AspNetConfiguration>Release</AspNetConfiguration>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <NuGetRestoreTargets>D:\VS2019\MSBuild\..\Common7\IDE\CommonExtensions\Microsoft\NuGet\NuGet.targets</NuGetRestoreTargets>
+    <IsRestoreTargetsFileLoaded>true</IsRestoreTargetsFileLoaded>
+    <RestoreTaskAssemblyFile>NuGet.Build.Tasks.dll</RestoreTaskAssemblyFile>
+    <HideWarningsAndErrors>false</HideWarningsAndErrors>
+    <RestoreRecursive>true</RestoreRecursive>
+    <MSBuildAllProjects>D:\Unity Projects\Calolens\Calolens\Builds\Calolens.sln.metaproj;;D:\VS2019\Common7\IDE\CommonExtensions\Microsoft\NuGet\NuGet.targets</MSBuildAllProjects>
+    <RestoreUseSkipNonexistentTargets>true</RestoreUseSkipNonexistentTargets>
+    <ValidateRuntimeIdentifierCompatibility>false</ValidateRuntimeIdentifierCompatibility>
+    <RestoreContinueOnError>WarnAndContinue</RestoreContinueOnError>
+    <RestoreBuildInParallel>true</RestoreBuildInParallel>
+    <_RestoreSolutionFileUsed>true</_RestoreSolutionFileUsed>
+    <NuGetInteractive />
+    <PackageDownloadSupported>true</PackageDownloadSupported>
+    <GetReferenceNearestTargetFrameworkTaskSupportsTargetPlatformParameter>true</GetReferenceNearestTargetFrameworkTaskSupportsTargetPlatformParameter>
+    <_GenerateRestoreGraphProjectEntryInputProperties>
+      ExcludeRestorePackageImports=true;
+      _RestoreSolutionFileUsed=true;
+      SolutionDir=D:\\Unity Projects\\Calolens\\Calolens\\Builds\;
+      SolutionName=Calolens;
+      SolutionFileName=Calolens.sln;
+      SolutionPath=D:\Unity Projects\Calolens\Calolens\Builds\Calolens.sln;
+      SolutionExt=.sln;
+    </_GenerateRestoreGraphProjectEntryInputProperties>
+    <_DirectorySolutionTargetsFile>Directory.Solution.targets</_DirectorySolutionTargetsFile>
+    <_DirectorySolutionTargetsBasePath />
+  </PropertyGroup>
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <ProjectReference Include="D:\Unity Projects\Calolens\Calolens\Builds\Il2CppOutputProject\Il2CppOutputProject.vcxproj">
+      <AdditionalProperties>Configuration=Release; Platform=ARM64</AdditionalProperties>
+      <Platform>ARM64</Platform>
+      <Configuration>Release</Configuration>
+      <ToolsVersion>
+      </ToolsVersion>
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+    </ProjectReference>
+  </ItemGroup>
+  <Target Name="Clean">
+    <MSBuild BuildInParallel="True" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" Projects="@(ProjectReference-&gt;Reverse())" Targets="Clean" Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" />
+    <MSBuild ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="True" Projects="D:\Unity Projects\Calolens\Calolens\Builds\Calolens\Calolens.vcxproj" Targets="Clean" Properties="Configuration=Release; Platform=ARM64;BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" />
+  </Target>
+  <Target Name="Build" Outputs="@(CalolensBuildOutput)">
+    <MSBuild BuildInParallel="True" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" Projects="@(ProjectReference)" Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" />
+    <MSBuild ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="True" Projects="D:\Unity Projects\Calolens\Calolens\Builds\Calolens\Calolens.vcxproj" Properties="Configuration=Release; Platform=ARM64;BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)">
+      <Output TaskParameter="TargetOutputs" ItemName="CalolensBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Rebuild" Outputs="@(CalolensBuildOutput)">
+    <MSBuild BuildInParallel="True" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" Projects="@(ProjectReference)" Targets="Rebuild" Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" />
+    <MSBuild ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="True" Projects="D:\Unity Projects\Calolens\Calolens\Builds\Calolens\Calolens.vcxproj" Targets="Rebuild" Properties="Configuration=Release; Platform=ARM64;BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)">
+      <Output TaskParameter="TargetOutputs" ItemName="CalolensBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Publish">
+    <MSBuild BuildInParallel="True" SkipNonexistentProjects="%(ProjectReference.SkipNonexistentProjects)" Projects="@(ProjectReference)" Targets="Publish" Properties="BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" />
+    <MSBuild ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="True" Projects="D:\Unity Projects\Calolens\Calolens\Builds\Calolens\Calolens.vcxproj" Targets="Publish" Properties="Configuration=Release; Platform=ARM64;BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" />
+  </Target>
+</Project>
