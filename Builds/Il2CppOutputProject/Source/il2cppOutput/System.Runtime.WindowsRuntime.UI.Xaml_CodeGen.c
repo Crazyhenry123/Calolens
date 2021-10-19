@@ -32,11 +32,11 @@ static Il2CppMethodPointer s_methodPointers[5] =
 };
 static const int32_t s_InvokerIndices[5] = 
 {
-	4542,
-	5431,
-	3522,
-	2040,
-	5470,
+	4543,
+	5432,
+	3523,
+	2041,
+	5471,
 };
 extern const CustomAttributesCacheGenerator g_System_Runtime_WindowsRuntime_UI_Xaml_AttributeGenerators[];
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_System_Runtime_WindowsRuntime_UI_Xaml_CodeGenModule;

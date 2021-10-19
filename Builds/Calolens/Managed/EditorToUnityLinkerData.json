@@ -585,7 +585,7 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
-            "fullManagedTypeName": "CameraCapture",
+            "fullManagedTypeName": "Demo",
             "moduleName": "",
             "usedInScenes": []
         },

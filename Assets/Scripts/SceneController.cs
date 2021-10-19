@@ -24,8 +24,9 @@ public class SceneController : MonoBehaviour
 
     public bool IsCameraActive { private set; get; }
 
-    public ObjectDetectionManager ObjectDetectionManager => objectDetectionManager;
+    public GameObject foodDetailsPrefab;
 
+    public ObjectDetectionManager ObjectDetectionManager => objectDetectionManager;
 
     [Header("Managers")]
     [SerializeField]
@@ -36,6 +37,8 @@ public class SceneController : MonoBehaviour
     private UnityEvent onCameraStarted = default;
     [SerializeField]
     private UnityEvent onCameraStopped = default;
+
+    private List<GameObject> Labels = new List<GameObject>();
 
 #if UNITY_WSA
     private PhotoCapture photoCapture;
@@ -149,6 +152,16 @@ public class SceneController : MonoBehaviour
     /// <returns>Image data encoded as jpg.</returns>
     public Task<byte[]> TakePhoto()
     {
+        if (Labels.Count != 0)
+        {
+            foreach (GameObject gameobj in Labels)
+            {
+                AppDispatcher.Instance().Enqueue(() => Destroy(gameobj));
+
+            }
+
+        }
+
         if (!IsCameraActive)
         {
             throw new Exception("Can't take photo when camera is not ready.");
@@ -270,6 +283,165 @@ public class SceneController : MonoBehaviour
         return;
         // return newLabel;
     }
+
+    public void CreateFoodLabel(GameObject label, Color txtcolor, string txt, Vector3 pos, Quaternion rotation)
+    {
+
+        Labels.Add(Instantiate(label, pos, rotation));
+        TextMesh t = label.GetComponent<TextMesh>();
+
+        t.anchor = TextAnchor.MiddleCenter;
+        t.alignment = TextAlignment.Center;
+        t.fontSize = 34;
+        t.text = txt;
+        t.color = txtcolor;
+    }
+
+    public void OnLabelManipulatingLabel()
+    {
+
+        Vector3 camPos = Camera.main.transform.position;
+        Quaternion camRot = Camera.main.transform.rotation;
+
+        GameObject foodDetailsPan = Instantiate(foodDetailsPrefab, new Vector3(camPos.x, camPos.y - 0.15f, camPos.z + 0.4f), camRot);
+        foodDetailsPan.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+        foodDetailsPan.SetActive(true);
+
+        GameObject foodDescription = GameObject.Find("Description");
+        UnityEngine.UI.Text foodDescriptionText = foodDescription.GetComponent<UnityEngine.UI.Text>();
+
+        /*
+        GameObject foodCalories = GameObject.Find("CaloriesSub");
+        UnityEngine.UI.Text caloriesAnalysis = foodCalories.GetComponent<UnityEngine.UI.Text>();
+
+        GameObject foodNutrition = GameObject.Find("NutritionSub");
+        UnityEngine.UI.Text nutritionAnalysis = foodNutrition.GetComponent<UnityEngine.UI.Text>();
+
+        GameObject foodRecommandation = GameObject.Find("RecommandationSub");
+        UnityEngine.UI.Text recommmandationText = foodRecommandation.GetComponent<UnityEngine.UI.Text>();
+        */
+
+        TextMesh labelTextMesh = gameObject.GetComponent<TextMesh>();
+
+        foodDescriptionText.text = "Name: " + labelTextMesh.text;
+
+        switch (labelTextMesh.text)
+        {
+
+            case "Vegetable":
+                foodDescriptionText.text += @"
+
+
+
+
+
+
+Weight: 132g, 
+18.24 kCAL.
+";
+                foodDescriptionText.text += @"
+
+
+
+Protein: 1.98g,
+Fat: 0.13g,
+Carbenhydrate: 4.22g.
+";
+                foodDescriptionText.text += @"
+
+
+Highly Recommanded.
+";
+                break;
+
+            case "Rice":
+                foodDescriptionText.text += @"
+
+
+
+
+
+
+Weight: 150g, 
+174 kCAL.
+";
+                foodDescriptionText.text += @"
+
+
+
+Protein: 3.9g,
+Fat: 0.45g,
+Carbenhydrate: 38.85g.
+";
+                foodDescriptionText.text += @"
+
+
+Recommanded.";
+
+                break;
+
+            case "Braised Pork":
+                foodDescriptionText.text += @"
+
+
+
+
+
+
+Weight: 180g, 
+846 kCAL.
+";
+                foodDescriptionText.text += @"
+
+
+
+Protein: 13.77g,
+Fat: 77.45g,
+Carbenhydrate: 9.09g.
+";
+                foodDescriptionText.text += @"
+
+
+Not Recommanded.";
+
+
+                break;
+
+            case "Coke0cal":
+                foodDescriptionText.text += @"
+
+
+
+
+
+
+Volumn: 330ml,
+0 kCAL.
+";
+                foodDescriptionText.text += @"
+
+
+
+Protein: 0g,
+Fat: 0g,
+Carbenhydrate: 0g.
+";
+                foodDescriptionText.text += @"
+
+
+Recommanded.";
+
+
+                break;
+
+        }
+
+        Destroy(foodDetailsPan, 3);
+
+
+    }
+
+
     // Update is called once per frame
     void Update()
     {

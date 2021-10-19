@@ -138,6 +138,7 @@ PlayerSettings:
   preloadedAssets:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 6820754183559651967, guid: 3f21a7a1f84a60e4190d720b554c7384, type: 2}
   - {fileID: 5209346689199097464, guid: cb46b93fda6e19a4d85a3e0239e78a0f, type: 2}
   metroInputSource: 0
@@ -156,7 +157,8 @@ PlayerSettings:
   resolutionScalingMode: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.Hackathon.Calolens
   buildNumber:
     Standalone: 0
     iPhone: 0

@@ -32,6 +32,11 @@ public class ObjectDetectionManager : MonoBehaviour
     [SerializeField]
     private string projectId = default;
 
+    [Header("Prefabs")]
+    [SerializeField]
+    public GameObject foodLabelPrefab;
+
+
 
 
     public async void StartComputerVisionDetection()
@@ -63,7 +68,7 @@ public class ObjectDetectionManager : MonoBehaviour
     private async Task SearchWithComputerVision()
     {
     
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             var image = await sceneController.TakePhoto();
             
             string maxScoreTag = null;
@@ -72,36 +77,13 @@ public class ObjectDetectionManager : MonoBehaviour
 
         try
         {
-            var body = await sceneController.ObjectDetectionManager.DetectImage(image, "Iteration2");
+            var body = await sceneController.ObjectDetectionManager.DetectImage(image, "Iteration1");
 
-       //     AppDispatcher.Instance().Enqueue(() => sceneController.SetLabel("acv response string is : " + body, new Vector3(0.03f, 0.03f, 0.03f)));
+            //     AppDispatcher.Instance().Enqueue(() => sceneController.SetLabel("acv response string is : " + body, new Vector3(0.03f, 0.03f, 0.03f)));
 
-      //     var response  = JsonConvert.DeserializeObject<CustomVisionResult>(body);
+            //     var response  = JsonConvert.DeserializeObject<CustomVisionResult>(body);
 
-            JObject jObject = JObject.Parse(body);
-            var Predictions = jObject.SelectToken("predictions").ToString();
-
-            JArray jArray = JArray.Parse(Predictions);
-
-
-            var maxscore = 0.0;
-
-
-            for (int i =0 ; i < jArray.Count; i++)
-            {
-                JObject jItem = JObject.Parse(jArray[i].ToString());
-
-                var score = jItem.SelectToken("probability");
-
-                if (Convert.ToDouble(score) > maxscore)
-                {
-                    maxscore = Convert.ToDouble(score);
-                    maxScoreTag = jItem.SelectToken("tagName").ToString();
-
-                }
-
-
-            }
+            maxScoreTag = getMaxScoreTagwithResponseBody(body);
 
 
             // Prediction[] predictions = JsonConvert.DeserializeObject<Prediction[]>(Predictions.ToString());
@@ -151,16 +133,55 @@ public class ObjectDetectionManager : MonoBehaviour
 
                             }
                             */
-            AppDispatcher.Instance().Enqueue(() =>sceneController.SetLabel(maxScoreTag, new Vector3(0.03f, 0.03f, 0.03f)));
+ //           AppDispatcher.Instance().Enqueue(() =>sceneController.SetLabel(maxScoreTag, new Vector3(0.03f, 0.03f, 0.03f)));
+
+            Vector3 camPos = Camera.main.transform.position;
+            Quaternion camRot = Camera.main.transform.rotation;
+
+            AppDispatcher.Instance().Enqueue(() => sceneController.CreateFoodLabel(foodLabelPrefab, Color.green, maxScoreTag, new Vector3(camPos.x, camPos.y - 0.35f, camPos.z + 1f),camRot));
 
 
-            
             }
             catch (Exception e)
             {
             AppDispatcher.Instance().Enqueue(() => sceneController.SetLabel("asv request failed with "+e.Message+"\n"+"\n", new Vector3(0.03f, 0.03f, 0.03f)));
 
         }
+
+    }
+
+
+
+    private string getMaxScoreTagwithResponseBody(string body)
+    {
+        string maxScoreTag = null;
+
+        JObject jObject = JObject.Parse(body);
+        var Predictions = jObject.SelectToken("predictions").ToString();
+
+        JArray jArray = JArray.Parse(Predictions);
+
+
+        var maxscore = 0.0;
+
+
+        for (int i = 0; i < jArray.Count; i++)
+        {
+            JObject jItem = JObject.Parse(jArray[i].ToString());
+
+            var score = jItem.SelectToken("probability");
+
+            if (Convert.ToDouble(score) > maxscore)
+            {
+                maxscore = Convert.ToDouble(score);
+                maxScoreTag = jItem.SelectToken("tagName").ToString();
+
+            }
+
+
+        }
+
+        return maxScoreTag;
 
     }
 
@@ -179,16 +200,16 @@ public class ObjectDetectionManager : MonoBehaviour
         {
             client.DefaultRequestHeaders.Add("Prediction-Key", apiKey);
             var result = await client.PostAsync(
-                $"{resourceBaseEndpoint}/customvision/v3.0/prediction/{projectId}/classify/iterations/{publishedName}/image",
+                $"{resourceBaseEndpoint}/customvision/v3.0/prediction/{projectId}/detect/iterations/{publishedName}/image",
                 new ByteArrayContent(image));
 
             if (!result.IsSuccessStatusCode)
             {
-                AppDispatcher.Instance().Enqueue(() => sceneController.SetLabel("result.ReasonPhrase, trying acv post..", new Vector3(0.03f, 0.03f, 0.03f)));
+ //               AppDispatcher.Instance().Enqueue(() => sceneController.SetLabel("result.ReasonPhrase, trying acv post..", new Vector3(0.03f, 0.03f, 0.03f)));
                 throw new Exception(result.ReasonPhrase);
             }
 
-           AppDispatcher.Instance().Enqueue(() => sceneController.SetLabel("Good result from asv service..", new Vector3(0.03f, 0.03f, 0.03f)));
+//           AppDispatcher.Instance().Enqueue(() => sceneController.SetLabel("Good result from asv service..", new Vector3(0.03f, 0.03f, 0.03f)));
 
           return  await result.Content.ReadAsStringAsync();
 

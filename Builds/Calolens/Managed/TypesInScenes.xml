@@ -57,7 +57,7 @@
 	</assembly>
 	<assembly fullname="Assembly-CSharp">
 		<type fullname="Assets.Utilities.AppDispatcher" preserve="nothing"/>
-		<type fullname="CameraCapture" preserve="nothing"/>
+		<type fullname="Demo" preserve="nothing"/>
 		<type fullname="ObjectDetectionManager" preserve="nothing"/>
 		<type fullname="SceneController" preserve="nothing"/>
 	</assembly>
